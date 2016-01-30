@@ -1,0 +1,50 @@
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('<%= asset_path 'home-bg.jpg' %>')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Seabrook (Ben) Barnett</h1>
+                        <hr class="small">
+                        <span class="subheading">A Simple Blog Built on Bootstrap/Rails</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <% @post1 = Post.find(params[:id].to_i) %>
+
+              <div class="n">
+                  <h2 class="post-title"><%= @post1.title %></h2>
+                        <h3 class="post-subtitle" style="font-weight: normal;">
+                          <%=raw sanitize(simple_format(@post1.body), :tags => %w(br p) ) %>
+                        </h3>
+                    </a>
+
+                    <p class="post-meta">Posted on <%= @post1.created_at %></p>
+                    <p class="post-meta">This post has been viewed <a href="#"><%= @post1.author_id %></a> times.</p>
+
+              </div>
+              <% $secret_url = new_post_path + "/#{(@post1.id.to_s)}" + "/delete" %>
+              <% $secret_url1 = new_post_path + "/#{(@post1.id.to_s)}" + "/edit" %>
+              <% if user_signed_in? %>
+  <h6><form name="myForm" onsubmit="return validateForm()" action="<%= $secret_url %>" method="get">
+<input type="submit" value="DELETE">
+</form></h6>
+
+
+<h6><form name="myForm1" onsubmit="return validateForm1()" action="<%= $secret_url1 %>" method="get">
+
+<input type="submit" value="EDIT">
+</form></h6>
+<% end %>
+                <hr>
+</div>
+</div>
+</div>

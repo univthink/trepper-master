@@ -1,0 +1,155 @@
+﻿<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <style>body{padding-top:0px !important;}</style>
+
+    <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <![endif]-->
+    <title>Bootstrap User Profile Template </title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag    'bootstrap', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag    'bootstap.min', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag    'round-about', media: 'all', 'data-turbolinks-track' => true %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+
+    <!-- BOOTSTRAP STYLE SHEET -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONT AWESOME ICONS STYLE SHEET -->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- CUSTOM STYLES -->
+     <link href="assets/css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" id="toggler" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="<%= welcome_path %>">TwitTwat</a>
+                <a class="navbar-brand" href="<%= logout_path %>">Logout</a>
+            </div>
+            <div class="to-toggle" style="display:none;" class="navbar-collapse collapse">
+                <ul class="to-toggle nav navbar-nav navbar-right" style="display:none;">
+                    <li class="to-toggle" style="display:none;"><a href="<%= welcome_path %>">HOME</a></li>
+                    <li class="to-toggle" style="display:none;"><a href="#about">ABOUT</a></li>
+                    <li class="to-toggle" style="display:none;"><a href="#contact">CONTACT</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!-- NAVBAR CODE END -->
+    <div class="container">
+        <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2> <%= User.find(params[:id]).first_name %>
+                     <%= User.find(params[:id]).last_name %></h2>
+                    <br />
+                    <br />
+
+                </div>
+            </div>
+         <!-- USER PROFILE ROW STARTS-->
+            <div class="row">
+                <div class="col-md-3 col-sm-3">
+
+                    <div class="user-wrapper">
+                      <img src="<%= User.find(params[:id]).image_file_name %>" />
+                    <div class="description">
+                                      <% if User.find(params[:id]).id != current_user.id %><a href="#" style="color: white!important;" class="btn btn-danger btn-sm"></i> &nbsp;Follow + </a> <% end %>
+                    <% if User.find(params[:id]).id == current_user.id %>  <button id="show-form" style="color: white!important;" class="btn btn-danger btn-sm"></i> &nbsp;New Post + </button> <% end %>
+                    <% if User.find(params[:id]).id == current_user.id %>  <button onclick="window.location.href='<%= edit_user_path %>'" id="show-form" style="color: white!important;" class="btn btn-danger btn-sm"></i> &nbsp;Edit Profile + </button><% end %>
+
+                       <h4>  <%= User.find(params[:id]).first_name %>
+                        <%= User.find(params[:id]).last_name %></h4>
+                        <h5> <strong> <%= User.find(params[:id]).title %></strong></h5>
+                        <p>
+                            <%= raw sanitize(simple_format(User.find(params[:id]).bio), :tags => %w(br p) )  %>
+                        </p>
+                        <hr />
+
+<script>
+$('#show-form').click(function() {
+     $('#target').toggle();
+     return false;
+ });
+  $('#toggler').click(function() {
+       $('.to-toggle').toggle();
+       return false;
+   });
+</script>
+                    </div>
+                     </div>
+
+                </div>
+  <div id="target" class="col-md-9 col-sm-9  user-wrapper" style="display:none;">
+    <h6>
+        <center><%= form_for Post.new, url: {action: :create, controller: :posts} do |f| %>
+        <div style="padding-bottom: 10px; padding-top:10px;" class="form_group">
+        <%= f.text_field :title %>
+        </div>
+        <div>
+        <%= f.text_area :body, size: "60x12" %>
+
+        <% author_id = current_user.theid.to_i + 1 %></center>
+        <%= f.submit :Save %>
+
+        <% end %>
+
+      </div>
+
+
+
+                <div class="col-md-9 col-sm-9  user-wrapper">
+                    <div class="description">
+                         <h3> <%= User.find(params[:id]).first_name %>'s Blog: </h3>
+                    <hr />
+<% @user = User.find(params[:id]) %>
+<% @posts = Post.where(user_id: params[:id] )  %>
+<% @posts = @posts.sort_by { |post| post.created_at }.reverse %>
+
+                                  <% @posts.each do |p| %>
+
+
+
+                                  <div class="post-preview">
+                                      <h3 style="overflow: hidden;" class="post-title"><%= p.title %></h3>
+                                            <h3 class="post-body" style="font-weight: normal;">
+                                              <%=raw sanitize(simple_format(p.body), :tags => %w(br p) ) %>
+                                            </h3>
+
+                                            <p class="post-meta">Posted on <%= p.created_at.strftime("%m/%d/%Y") %></p>
+                                            <p><% p.user_id = current_user.id.to_i %></p>
+
+                                      <% if User.find(params[:id]).id == current_user.id %>      <p><%= link_to "DELETE", delete_path + "/#{p.id}" %></p> <% end %>
+                                  </div>
+                                  <% end %>
+
+
+
+                    <hr />
+
+
+                </div>
+            </div>
+           <!-- USER PROFILE ROW END-->
+    </div>
+    <!-- CONATINER END -->
+    <!-- REQUIRED SCRIPTS FILES -->
+    <!-- CORE JQUERY FILE -->
+    <script src="assets/js/jquery-1.11.1.js"></script>
+    <!-- REQUIRED BOOTSTRAP SCRIPTS -->
+    <script src="assets/js/bootstrap.js"></script>
+</body>
+
+</html>

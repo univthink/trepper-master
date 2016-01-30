@@ -1,0 +1,40 @@
+<style>.form-label1 { float: left; clear: both; } .form-field1 { width: 200px; float: right; clear: both; } .form1 {width: 500px;}</style>
+<img style="height: 100px; width: 100px; border-radius: 100%;" src="<%= current_user.image_file_name %>" />
+
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <center><div class="form1"><div class="field">
+    <%= f.label :first_name, "First Name: ", class: "form-label1"%>
+    <%= f.text_field :first_name, class: "form-field1" %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name, "Last Name: ", class: "form-label1" %>
+    <%= f.text_field :last_name, class: "form-field1" %>
+  </div>
+  <div class="field">
+    <%= f.label :title, "Title: ", class: "form-label1" %>
+    <%= f.text_field :title, class: "form-field1" %>
+  </div>
+  <div class="field">
+    <%= f.label :bio, "Bio: ", class: "form-label1" %>
+    <%= f.text_area :bio, class: "form-field1" %>
+  </div>
+  <div class="field">
+    <%= f.label :image, "Image Url: ", class: "form-label1" %>
+    <%= f.text_field :image_file_name, class: "form-field1" %><br>
+</div>
+  <div class="form-label1">
+    <%= f.submit %>
+  </div></div></center>
+<% end %>

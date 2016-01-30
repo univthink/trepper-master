@@ -1,0 +1,75 @@
+    <script>
+    function validateForm() {
+      if (document.myForm.fname.value != null)
+      {
+        window.location = "<%= $secret_url %> + "/" + document.myForm.fname.value";
+        return true;
+      }
+      else
+      {
+        alert("Name must be filled out");
+        return false;
+      }
+}
+    </script>
+    <script>
+    function validateForm1() {
+        if (document.myForm1.fname1.value != null)
+        {
+          window.location = "<%= $secret_url1 %> + "/" + document.myForm1.fname.value";
+          return true;
+        }
+        else
+        {
+          alert("Password must be filled out");
+          return false;
+        }
+}
+</script>
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('<%= asset_path 'home-bg.jpg' %>')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Seabrook (Ben) Barnett</h1>
+                        <hr class="small">
+                        <span class="subheading">A Simple Blog Built on Bootstrap/Rails</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <% @posts = Post.where(author_id: current_user.theid.to_i ) %>
+                            <% @posts.each do |p| %>
+
+
+
+                            <div class="post-preview">
+                                <h2 class="post-title"><%= link_to p.title, "posts" + "/#{p.id}" %></h2>
+                                      <h3 class="post-body" style="font-weight: normal;">
+                                        <%=raw sanitize(simple_format(p.body), :tags => %w(br p) ) %>
+                                      </h3>
+
+                                      <p class="post-meta">Posted on <%= p.created_at %></p>
+                                  <p class="post-meta">This post has been viewed <a href="#"><%= p.author_id %></a> times.</p>
+
+                            </div>
+              <% end %>
+              <% if user_signed_in? %>
+                              <!-- Pager -->
+                              <ul class="pager">
+                                  <li class="next">
+                                    <a href="<%= new_post_path %>">New Post &rarr;</a>
+                                  </li>
+                              </ul>
+                              <% end %>
+            </div>
+        </div>
+    </div>

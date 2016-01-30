@@ -1,0 +1,4 @@
+<% if user_signed_in? %><h1>Your Name Is<%= current_user.first_name %> <%= current_user.last_name %></h1>
+<% else %>
+<h1>Nope</h1>
+<% end %>
