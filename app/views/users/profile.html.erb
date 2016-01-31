@@ -52,8 +52,8 @@
     <div class="container">
         <div class="row">
                 <div class="col-md-12 text-center">
-                    <h2> <%= User.find(params[:id]).first_name %>
-                     <%= User.find(params[:id]).last_name %></h2>
+                    <h2> <%= current_user.first_name %>
+                     <%= current_user.last_name %></h2>
                     <br />
                     <br />
 
@@ -64,17 +64,16 @@
                 <div class="col-md-3 col-sm-3">
 
                     <div class="user-wrapper">
-                      <img src="<%= User.find(params[:id]).image_file_name %>" />
+                      <img src="<%= current_user.image_file_name %>" />
                     <div class="description">
-                                      <% if User.find(params[:id]).id != current_user.id %><a href="#" style="color: white!important;" class="btn btn-danger btn-sm"></i> &nbsp;Follow + </a> <% end %>
-                    <% if User.find(params[:id]).id == current_user.id %>  <button id="show-form" style="color: white!important;" class="btn btn-danger btn-sm"></i> &nbsp;New Post + </button> <% end %>
-                    <% if User.find(params[:id]).id == current_user.id %>  <button onclick="window.location.href='<%= edit_user_path %>'" id="show-form" style="color: white!important;" class="btn btn-danger btn-sm"></i> &nbsp;Edit Profile + </button><% end %>
+                                      <% if current_user.id != current_user.id %><a href="#" style="color: white!important;" class="btn btn-danger btn-sm"></i> &nbsp;Follow + </a> <% end %>
+                      <button onclick="document.getElementById('#target').scrollIntoView()" target="#show-form" id="show-form" style="color: white!important;" class="btn btn-danger btn-sm"></i> &nbsp;New Post + </button>
 
-                       <h4>  <%= User.find(params[:id]).first_name %>
-                        <%= User.find(params[:id]).last_name %></h4>
-                        <h5> <strong> <%= User.find(params[:id]).title %></strong></h5>
+                       <h4>  <%= current_user.first_name %>
+                        <%= current_user.last_name %></h4>
+                        <h5> <strong> <%= current_user.title %></strong></h5>
                         <p>
-                            <%= raw sanitize(simple_format(User.find(params[:id]).bio), :tags => %w(br p) )  %>
+                            <%= raw sanitize(simple_format(current_user.bio), :tags => %w(br p) )  %>
                         </p>
                         <hr />
 
@@ -112,9 +111,9 @@ $('#show-form').click(function() {
 
                 <div class="col-md-9 col-sm-9  user-wrapper">
                     <div class="description">
-                         <h3> <%= User.find(params[:id]).first_name %>'s Blog: </h3>
+                         <h3> <%= current_user.first_name %>'s Blog: </h3>
                     <hr />
-<% @user = User.find(params[:id]) %>
+<% @user = current_user %>
 <% @posts = Post.where(user_id: params[:id] )  %>
 <% @posts = @posts.sort_by { |post| post.created_at }.reverse %>
 
@@ -131,7 +130,7 @@ $('#show-form').click(function() {
                                             <p class="post-meta">Posted on <%= p.created_at.strftime("%m/%d/%Y") %></p>
                                             <p><% p.user_id = current_user.id.to_i %></p>
 
-                                      <% if User.find(params[:id]).id == current_user.id %>      <p><%= link_to "DELETE", delete_path + "/#{p.id}" %><%= link_to " EDIT", edit_path + "/#{p.id}" %></p> <% end %>
+                                      <% if current_user.id == current_user.id %>      <p><%= link_to "DELETE", delete_path + "/#{p.id}" %><%= link_to " EDIT", edit_path + "/#{p.id}" %></p> <% end %>
                                   </div>
                                   <% end %>
 

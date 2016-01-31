@@ -12,6 +12,12 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  def showtunes
+    @user = current_user
+    render template: "users/profile"
+  end
+
+
   # GET /users/new
   def new
     @user = User.new

@@ -1,0 +1,53 @@
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('<%= asset_path 'home-bg.jpg' %>')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Test (Ben) Barnett</h1>
+                        <hr class="small">
+                        <span class="subheading">A Simple Blog Built on Bootstrap/Rails</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <% if params[:action] == "new" || params[:action] == "create" %>
+                <h2 class="post-title">New post</h1>
+              <% else %>
+                <h2 class="post-title">Edit post</h1>
+              <% end %>
+
+              <%= form_for @post do |f| %>
+              <div style="padding-bottom: 10px;" class="form_group">
+                <%= f.text_field :title %>
+              </div>
+                <%= f.text_area :body, size: "60x12" %>
+
+                <% author_id = current_user.theid.to_i %>
+                <% end %>
+                <% if user_signed_in? %>
+
+<% if params[:action] == "new" || params[:action] == "create" %>
+  <h6><form name="myForm" onsubmit="return true" action="<%= @post.save %>" method="get">
+  <input type="submit" value="SAVE">
+</form></h6>
+<% else %>
+<h6><form name="myForm" onsubmit="return true" action="<%= update_path %>" method="get">
+<input type="submit" value="SAVE">
+</form></h6>
+
+<% end %>
+
+                <hr>
+                <!-- Pager -->
+
+            </div>
+        </div>
+    </div>

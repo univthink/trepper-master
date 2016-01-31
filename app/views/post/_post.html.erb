@@ -18,8 +18,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-              <% @post1 = Post.find(params[:id].to_i) %>
+              <% if params[:id].is_a? Integer %>
 
+              <% @post1 = Post.find(params[:id].to_i) %>
               <div class="n">
                   <h2 class="post-title"><%= @post1.title %></h2>
                         <h3 class="post-subtitle" style="font-weight: normal;">
@@ -34,16 +35,47 @@
               <% $secret_url = new_post_path + "/#{(@post1.id.to_s)}" + "/delete" %>
               <% $secret_url1 = new_post_path + "/#{(@post1.id.to_s)}" + "/edit" %>
               <% if user_signed_in? %>
-  <h6><form name="myForm" onsubmit="return validateForm()" action="<%= $secret_url %>" method="get">
-<input type="submit" value="DELETE">
-</form></h6>
+              <h6><form name="myForm" onsubmit="return validateForm()" action="<%= $secret_url %>" method="get">
+              <input type="submit" value="DELETE">
+              </form></h6>
 
 
-<h6><form name="myForm1" onsubmit="return validateForm1()" action="<%= $secret_url1 %>" method="get">
+              <h6><form name="myForm1" onsubmit="return validateForm1()" action="<%= $secret_url1 %>" method="get">
 
-<input type="submit" value="EDIT">
-</form></h6>
-<% end %>
+              <input type="submit" value="EDIT">
+              </form></h6>
+              <% end %>
+               <% else %>
+
+              <% @post = Post.all %>
+              <% @post.each do |post| %>
+              <div class="n">
+                  <h2 class="post-title"><%= post.title %></h2>
+                        <h3 class="post-subtitle" style="font-weight: normal;">
+                          <%=raw sanitize(simple_format(post.body), :tags => %w(br p) ) %>
+                        </h3>
+                    </a>
+
+                    <p class="post-meta">Posted on <%= post.created_at %></p>
+                    <p class="post-meta">This post has been viewed <a href="#"><%= post.author_id %></a> times.</p>
+
+              </div>
+
+              <% if user_signed_in? %>
+              <h6><form name="myForm" onsubmit="return validateForm()" action="<%= delete_path %>" method="get">
+              <input type="submit" value="DELETE">
+              </form></h6>
+
+
+              <h6><form name="myForm1" onsubmit="return validateForm1()" action="<%= edit_path + "/" + post.id.to_s %>" method="get">
+
+              <input type="submit" value="EDIT">
+              </form></h6>
+              <% end %>
+              <% end %>
+              <% end %>
+
+
                 <hr>
 </div>
 </div>

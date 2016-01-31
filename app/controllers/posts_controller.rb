@@ -7,10 +7,12 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
+    if params[:id].is_a? Integer
+      @post1 = Post.find(params[:id])
+      @post1.save
+    end
+    @post = Post.all
     render partial: "post/post", layout: "application"
-    @post.author_id = @post.author_id
-    @post.save
   end
 
   def new
@@ -23,7 +25,7 @@ class PostsController < ApplicationController
     render partial: "post/error", layout: "error"
   end
 end
-  def create
+  def create1
     session[:return_to] ||= request.referer
     @post = Post.new(post_params)
     @post.user_id = current_user.id.to_i
@@ -36,19 +38,25 @@ end
   end
   end
 
-  def edit
-    @post = Post.all
-    @url = request.original_url
-    @post = Post.find(params[:id])
-    if user_signed_in?
-      @post.save
-    render partial: "post/new", layout: "application"
-    else
-      render partial: "post/error", layout: "error"
+  def create
+    @posts = Post.all
+    @post = Post.new(post_params)
+    @post.user_id = current_user.id.to_i
+    @post.author_id = current_user.theid.to_i
+    if current_user_session
+    @post.save
+    render partial: "post/all", layout: "application"
+  else
+    render partial: "post/error", layout: "error"
   end
   end
 
-  def update
+  def edit
+    @post = Post.find(params[:id])
+    render partial: "post/new", layout: "application"
+  end
+
+  def update1
     @post = Post.find(params[:id])
     if user_signed_in?
     if @post.update(post_params)
@@ -59,6 +67,17 @@ end
   end
     @post.save
   end
+
+  def update
+  session[:referrer]=url_for(params)
+  @post = Post.find(URI(request.referer).path.split('/')[-1])
+  @post.update(post_params)
+  if @post.save
+    redirect_to @post
+  else
+    render 'post/edit'
+  end
+end
 
   def destroy
     session[:return_to] ||= request.referer
@@ -81,7 +100,7 @@ end
   end
   private
   def post_params
-    params.require(:post).permit(:title, :post, :body, :author_id)
+    params.permit(:title, :post, :body, :author_id)
   end
 
 end
