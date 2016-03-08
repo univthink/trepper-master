@@ -67,13 +67,13 @@
                 <h1 class="page-header">Our Bloggers
                     <small>Take a look, check us out!</small>
                 </h1>
-                <p>Think. Speak. Do</p>
+                <p></p>
             </div>
         </div>
         <!-- Team Members Row -->
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="page-header">Our Bloggers</h2>
+                <h2 class="page-header"></h2>
             </div>
             <% @users = User.all %>
             <% @users.each do |user| %>
@@ -83,6 +83,12 @@
                   <br>  <small><%= user.title %></small>
                 </h3>
                 <p><%= user.bio %></p>
+                <% @post = Post.where(user_id: user.id )  %>
+                <% @post = @post.last %>
+                <p style="font-weight: bold;"><%= @post.title %></p>
+                <p style="max-height: 100px; text-align: justify; overflow: scroll;"><%= @post.body + "..."  %></p>
+
+
             </div></a>
             <% end %>
         </div>
@@ -93,7 +99,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; Universally Thinking 2016</p>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
