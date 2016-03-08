@@ -94,15 +94,15 @@ $('#show-form').click(function() {
                 </div>
   <div id="target" class="col-md-9 col-sm-9  user-wrapper" style="display:none;">
     <h6>
-        <center><%= form_for Post.new, url: {action: :create, controller: :posts} do |f| %>
+        <center><%= form_for(Post.new) do |f| %>
         <div style="padding-bottom: 10px; padding-top:10px;" class="form_group">
         <%= f.text_field :title %>
         </div>
         <div>
         <%= f.text_area :body, size: "60x12" %>
 
-        <% author_id = current_user.theid.to_i + 1 %></center>
-        <%= f.submit :Save %>
+        <%# author_id = current_user.theid.to_i + 1 %></center>
+        <%= f.submit %>
 
         <% end %>
 
@@ -125,7 +125,7 @@ $('#show-form').click(function() {
                                   <div class="post-preview">
                                       <h3 style="overflow: hidden;" class="post-title"><%= p.title %></h3>
                                             <h3 class="post-body" style="font-weight: normal;">
-                                              <%=raw sanitize(simple_format(p.body), :tags => %w(br p) ) %>
+                                              <%= raw sanitize(simple_format(p.body), :tags => %w(br p) ) %>
                                             </h3>
 
                                             <p class="post-meta">Posted on <%= p.created_at.strftime("%m/%d/%Y") %></p>

@@ -87,6 +87,16 @@ $('#show-form').click(function() {
        return false;
    });
 </script>
+<script>
+$('#show-form1').click(function() {
+     $('#target1').toggle();
+     return false;
+ });
+  $('#toggler1').click(function() {
+       $('.to-toggle1').toggle();
+       return false;
+   });
+</script>
                     </div>
                      </div>
 
@@ -104,7 +114,19 @@ $('#show-form').click(function() {
         <%= f.submit :Save %>
 
         <% end %>
+    </div>
+      <div id="target1" class="col-md-9 col-sm-9  user-wrapper" style="display:none;">
+        <center><%= form_for Post.find(params[:id]), url: {action: :create, controller: :posts} do |f| %>
+        <div style="padding-bottom: 10px; padding-top:10px;" class="form_group">
+        <%= f.text_field :title %>
+        </div>
+        <div>
+        <%= f.text_area :body, size: "60x12" %>
 
+        <% author_id = current_user.theid.to_i + 1 %></center>
+        <%= f.submit :Save %>
+
+        <% end %>
       </div>
 
 
@@ -130,7 +152,10 @@ $('#show-form').click(function() {
                                             <p class="post-meta">Posted on <%= p.created_at.strftime("%m/%d/%Y") %></p>
                                             <p><% p.user_id = current_user.id.to_i %></p>
 
-                                      <% if current_user.id == current_user.id %>      <p><%= link_to "DELETE", delete_path + "/#{p.id}" %><%= link_to " EDIT", edit_path + "/#{p.id}" %></p> <% end %>
+                                      <% if current_user.id == current_user.id %>      <p>
+
+
+                                        <%= link_to "DELETE", delete_path + "/#{p.id}" %>  <button onclick="document.getElementById('#target').scrollIntoView()" target="#show-form1" id="show-form1" style="color: white!important;" class="btn btn-danger btn-sm"></i> &nbsp;New Post + </button></p> <% end %>
                                   </div>
                                   <% end %>
 

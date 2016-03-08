@@ -1,7 +1,7 @@
 <style>.form-label1 { float: left; clear: both; } .form-field1 { width: 200px; float: right; clear: both; } .form1 {width: 500px;}</style>
 <img style="height: 100px; width: 100px; border-radius: 100%;" src="<%= current_user.image_file_name %>" />
 
-<%= form_for(@user) do |f| %>
+<center><%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -37,4 +37,4 @@
   <div class="form-label1">
     <%= f.submit %>
   </div></div></center>
-<% end %>
+<% end %></center>

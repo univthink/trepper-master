@@ -15,69 +15,26 @@ class PostsController < ApplicationController
     render partial: "post/post", layout: "application"
   end
 
-  def new
-    @posts = Post.all
-    if user_signed_in?
-    @post = Post.new
-    @post.author_id = current_user.theid.to_i
-    render partial: "post/new", layout: "application"
-  else
-    render partial: "post/error", layout: "error"
+
+def create
+  @post = Post.new
+  @post.user_id = current_user.id.to_i
+  @post.author_id = current_user.theid.to_i
+  @post.title = post_params[:title]
+  @post.body = post_params[:body]
+  if @post.save
+    redirect_to current_user
   end
 end
-  def create1
-    session[:return_to] ||= request.referer
-    @post = Post.new(post_params)
-    @post.user_id = current_user.id.to_i
-    @post.author_id = current_user.theid.to_i
-    if user_signed_in?
-    @post.save
-    redirect_to session.delete(:return_to)
-    else
-    render partial: "post/error", layout: "error"
-  end
-  end
 
-  def create
-    @posts = Post.all
-    @post = Post.new(post_params)
-    @post.user_id = current_user.id.to_i
-    @post.author_id = current_user.theid.to_i
-    if current_user_session
-    @post.save
-    render partial: "post/all", layout: "application"
-  else
-    render partial: "post/error", layout: "error"
-  end
-  end
-
-  def edit
-    @post = Post.find(params[:id])
-    render partial: "post/new", layout: "application"
-  end
-
-  def update1
-    @post = Post.find(params[:id])
-    if user_signed_in?
-    if @post.update(post_params)
-      redirect_to @post
-    else
-      render partial: "post/new", layout: "application"
-    end
-  end
-    @post.save
-  end
 
   def update
-  session[:referrer]=url_for(params)
-  @post = Post.find(URI(request.referer).path.split('/')[-1])
-  @post.update(post_params)
-  if @post.save
-    redirect_to @post
-  else
-    render 'post/edit'
+    @post = Post.find(params[:id])
+    @post.title = post_params[:title]
+    @post.body = post_params[:body]
+    @post.save
+    redirect_to current_user
   end
-end
 
   def destroy
     session[:return_to] ||= request.referer
@@ -94,13 +51,24 @@ end
     render partial: "post/error", layout: "error"
   end
   end
+
   def all
     @posts = @posts.sort_by { |post| post.author_id.size }.reverse
     render partial: "post/all", layout: "application"
   end
-  private
+
   def post_params
-    params.permit(:title, :post, :body, :author_id)
+    params.require(:post).permit(:title, :body, :author_id)
+  end
+
+
+  def created
+    params.require(:post).permit(:title, :body, :author_id)
+    @post = Post.new
+    @post.title = post_params[:title]
+    @post.body = post_params[:body]
+    @post.save
+    redirect_to current_user
   end
 
 end

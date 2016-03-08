@@ -23,27 +23,20 @@
               <% else %>
                 <h2 class="post-title">Edit post</h1>
               <% end %>
+              <% @post = Post.find_by_id(params[:id] )  %>
 
-              <%= form_for @post do |f| %>
+              <%= form_for(@post) do |f| %>
               <div style="padding-bottom: 10px;" class="form_group">
                 <%= f.text_field :title %>
               </div>
                 <%= f.text_area :body, size: "60x12" %>
 
                 <% author_id = current_user.theid.to_i %>
+                <p>
+                <%= f.submit %>
+              </p>
                 <% end %>
-                <% if user_signed_in? %>
 
-<% if params[:action] == "new" || params[:action] == "create" %>
-  <h6><form name="myForm" onsubmit="return true" action="<%= @post.save %>" method="get">
-  <input type="submit" value="SAVE">
-</form></h6>
-<% else %>
-<h6><form name="myForm" onsubmit="return true" action="<%= update_path %>" method="get">
-<input type="submit" value="SAVE">
-</form></h6>
-
-<% end %>
 
                 <hr>
                 <!-- Pager -->

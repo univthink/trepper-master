@@ -6,9 +6,11 @@ Rails.application.routes.draw do
   resources :users
   resources :posts
   # You can have the root of your site routed with "root"
-  root 'users#edit'
+  root 'welcome#index'
   get 'welcome' => 'welcome#index', as: :welcome
   patch 'save_user' => 'welcome#save', as: :save_user
+  post 'posts/new' => 'posts#new', as: :create_post
+
   devise_scope :user do
   get 'logout' => 'session#destroy', as: :logout
   end
@@ -17,6 +19,8 @@ Rails.application.routes.draw do
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   post 'posts/create' => 'posts#create', as: :save_post
+  get 'posts/update' => 'posts#create_again', as: :save_post_again
+
   get 'update' => 'posts#update', as: :update
   get 'user/edit' => 'users#edit', as: :edit_users
   get 'profile' => 'users#showtunes', as: :user1

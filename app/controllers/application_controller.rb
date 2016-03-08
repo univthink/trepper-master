@@ -17,8 +17,10 @@ class ApplicationController < ActionController::Base
   end
 
   def post_params
-    params.require(:title).permit(:post, :body, :author_id)
+    params.require(:post).permit(:title, :body, :author_id)
   end
-
+  def edit_params
+    params.permit(:title, :post, :body, :author_id)
+  end
 
 end

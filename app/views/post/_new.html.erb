@@ -28,7 +28,7 @@
                                 <% end %>
                                 <% if user_signed_in? %>
 
-                    <% if params[:action] = "new" || params[:action] = "create" %>
+                    <% if params[:action] = "new" %>
                     <h6><form name="myForm" onsubmit="return true" action="<%= save_post_path %>" method="get">
                     <input type="submit" value="SAVE">
                     </form></h6>
@@ -48,8 +48,8 @@
                       <% end %>
                       <% if user_signed_in? %>
 
-                    <% if params[:action] == "new" || params[:action] == "create" %>
-                    <h6><form name="myForm" onsubmit="return true" action="<%= update_path %>" method="get">
+                    <% if params[:action] == "edit" || params[:action] == "create_again" %>
+                    <h6><form name="myForm" onsubmit="return true" action="<%= save_post_again_path %>" method="post">
                     <input type="submit" value="SAVE">
                     </form></h6>
                     <% end %>
