@@ -87,7 +87,7 @@
                 <h2 class="page-header"></h2>
             </div>
 
-        <a href="<%= users_path + "/" + p.user.id.to_s %>"><div class="col-lg-4 col-sm-6 text-center">
+        <a href="<%= users_path + "/" + p.user.id.to_s %>"><div style="width: 100%" class="text-center">
           <img src="<%= User.find_by_id(p.user.id).image_file_name %>" class="img-circle img-responsive img-center" style="height: 200px; width: 200px;" /></a>
                 <h3><%#= link_to "#{user.first_name} #{user.last_name}", user %>
                   <br>  <small><%= User.find_by_id(p.user.id).title %></small>
