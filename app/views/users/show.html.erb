@@ -45,7 +45,7 @@
                   <a class="navbar-brand" href="<%= edit_users_path %>">Edit Profile</a>
                   <a class="navbar-brand" href="<%= logout_path %>">Logout</a>
                 </div>
-            
+
             <div class="to-toggle" style="display:none;" class="navbar-collapse collapse">
                 <ul class="to-toggle nav navbar-nav navbar-right" style="display:none;">
                   <li class="to-toggle" style="display:none;"><a href="<%= welcome_path %>">HOME</a></li>
@@ -112,7 +112,7 @@ $('#show-form').click(function() {
         <%= f.text_field :title %>
         </div>
         <div>
-        <%= f.text_area :body, size: "60x12" %>
+        <%= f.text_area :body, size: "30x12" %>
 
         <%# author_id = current_user.theid.to_i + 1 %></center>
         <%= f.submit %>
