@@ -1,0 +1,16 @@
+<h4 class="pull-right"></h4>
+   <div class="col-lg-8 col-md-10 col-md-offset-1">
+   <% @posts.each do |p| %>
+       <div class="post-preview">
+           <h3 class="post-body" style="font-weight: normal;">
+           <%= link_to p.user.first_name, user_path(id:p.user.id) %>
+           </h3>
+           <%=raw sanitize(simple_format(p.title), :tags => %w(br p em) ) %>
+           <p class="post-meta">Posted on <%= p.created_at %></p>
+       <% if current_user == User.find_by_id(current_user) %>
+           <%= link_to "DELETE", post_path(id:p.id), :method => :destroy %>
+           <%= link_to "EDIT", post_path(id:p.id), :method => :edit %>
+       <% end %>
+       </div>
+
+   <% end %>

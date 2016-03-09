@@ -1,7 +1,8 @@
+<style>html, #html, .html{background-image: url('<%= image_path("serene.jpg") %>')}</style>
 <h2></h2>
-<center>
+<center><div style="width: 20vw; background-color: lightgray; opacity: 0.8; border: 10px solid lightgray; margin-top: 0px; padding-top: 0px;">
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div style="margin-top: 35vh;" class="field">
+  <div style="margin-top: 1vh;" class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true %>
   </div>

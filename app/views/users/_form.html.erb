@@ -1,5 +1,5 @@
 <style>.form-label1 { float: left; clear: both; } .form-field1 { width: 200px; float: right; clear: both; } .form1 {width: 500px;}</style>
-<img style="height: 100px; width: 100px; border-radius: 100%;" src="<%= current_user.image_file_name %>" />
+<img style="height: 100px; width: 100px;" src="<%= current_user.image_file_name %>" />
 
 <center><%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>

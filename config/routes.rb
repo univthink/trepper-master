@@ -5,6 +5,15 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks", session: "session"}
   resources :users
   resources :posts
+
+  resources :users do
+    member do
+      get :follow
+      get :unfollow
+    end
+  end
+
+  get 'newsfeed' => 'welcome#feed', as: :feed
   # You can have the root of your site routed with "root"
   root 'welcome#index'
   get 'welcome' => 'welcome#index', as: :welcome

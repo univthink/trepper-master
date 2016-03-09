@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
   has_many :posts
 
   cattr_accessor :current_user
+  acts_as_follower
+  acts_as_followable
+
 
   has_attached_file :image, styles: { small: "64x64", med: "100x100", large: "200x200" }
 

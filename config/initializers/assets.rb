@@ -10,7 +10,7 @@ Rails.application.config.assets.precompile += %w( round-about.css )
 Rails.application.config.assets.precompile += %w( scaffolds.scss )
 Rails.application.config.assets.precompile += %w( users.scss )
 Rails.application.config.assets.precompile += %w( 1.jpg )
-
+Rails.application.config.assets.precompile += %w( serene.jpg )
 # Add additional assets to the asset load path
 # Rails.application.config.assets.paths << Emoji.images_path
 

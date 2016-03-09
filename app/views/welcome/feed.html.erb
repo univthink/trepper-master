@@ -7,7 +7,9 @@
     <style>body{padding-top:0px !important; background-color: #EAEAEA !important; }
     @media screen and (max-width: 767px) {
       #toggle123 {display:none;}
-    }</style>
+    }
+
+    </style>
 
     <!--[if IE]>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -38,18 +40,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <div id="toggle123">  <a class="navbar-brand" href="<%= welcome_path %>">TwitTwat</a>
-                  <a class="navbar-brand" href="<%= feed_path %>">Newsfeed</a>
-                  <a class="navbar-brand" href="<%= edit_users_path %>">Edit Profile</a>
-                  <a class="navbar-brand" href="<%= logout_path %>">Logout</a>
-                </div>
+              <div id="toggle123">  <a class="navbar-brand" href="<%= welcome_path %>">TwitTwat</a>
+                <a class="navbar-brand" href="<%= feed_path %>">Newsfeed</a>
+                <a class="navbar-brand" href="<%= edit_users_path %>">Edit Profile</a>
+                <a class="navbar-brand" href="<%= logout_path %>">Logout</a>
+              </div>
             </div>
+
             <div class="to-toggle" style="display:none;" class="navbar-collapse collapse">
               <ul class="to-toggle nav navbar-nav navbar-right" style="display:none;">
-                <li class="to-toggle" style="display:none;"><a href="<%= welcome_path %>">HOME</a></li>
-                <li class="to-toggle" style="display:none;"><a href="<%= feed_path %>">NEWSFEED</a></li>
-                <li class="to-toggle" style="display:none;"><a href="<%= edit_users_path %>">EDIT PROFILE</a></li>
-                <li class="to-toggle" style="display:none;"><a href="<%= logout_path %>">LOGOUT</a></li>
+                  <li class="to-toggle" style="display:none;"><a href="<%= welcome_path %>">HOME</a></li>
+                  <li class="to-toggle" style="display:none;"><a href="<%= feed_path %>">NEWSFEED</a></li>
+                  <li class="to-toggle" style="display:none;"><a href="<%= edit_users_path %>">EDIT PROFILE</a></li>
+                  <li class="to-toggle" style="display:none;"><a href="<%= logout_path %>">LOGOUT</a></li>
               </ul>
             </div>
 
@@ -71,37 +74,35 @@
         <!-- Introduction Row -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Our Bloggers
-                    <small></small>
+                <h1 class="page-header">Newsfeed
+
                 </h1>
-                <h3>Take a look, check us out!</h3>
+                <small>What your friends are saying!</small>
             </div>
         </div>
         <!-- Team Members Row -->
-        <div class="row">
+        <% @posts.each do |p| %>
+        <center><div class="row">
             <div class="col-lg-12">
                 <h2 class="page-header"></h2>
             </div>
-            <% @users = User.all %>
-            <% @users.each do |user| %>
-        <a href="<%= users_path + "/" + user.id.to_s %>">    <div class="col-lg-4 col-sm-6 text-center">
-          <img src="<%= user.image_file_name %>" class="img-circle img-responsive img-center" style="height: 200px; width: 200px;" />
-                <h3><%= link_to "#{user.first_name} #{user.last_name}", user %>
-                  <br>  <small><%= user.title %></small>
+
+        <a href="<%= users_path + "/" + p.user.id.to_s %>"><div class="col-lg-4 col-sm-6 text-center">
+          <img src="<%= User.find_by_id(p.user.id).image_file_name %>" class="img-circle img-responsive img-center" style="height: 200px; width: 200px;" /></a>
+                <h3><%#= link_to "#{user.first_name} #{user.last_name}", user %>
+                  <br>  <small><%= User.find_by_id(p.user.id).title %></small>
                 </h3>
-                <p><%= user.bio %></p>
-                <% @post = Post.where(user_id: user.id )  %>
-                <% @post = @post.last %>
-                <% if @post.nil? == false %><center><p style="font-weight: bold;"><%= @post.title %></p>
-                <p style="max-height: 100px; text-align: justify; overflow: scroll; max-width: 250px;"><%= @post.body + "..."  %></p></center>
+                <p><%= User.find_by_id(p.user.id).bio %></p>
+                <% if p.title.nil? == false %><center><p style="font-weight: bold;"><%= p.title %></p>
+                <p style="max-height: 100px; text-align: justify; overflow: scroll; max-width: 250px;"><%= p.body + "..."  %></p></center>
                 <% else %><p style="font-weight: bold;">No posts to display</p>
                 <p style="max-height: 100px; text-align: justify; overflow: scroll;"></p>
 
                 <% end %>
 
-            </div></a>
-            <% end %>
-        </div>
+            </div>
+        </div></center>
+        <% end %>
 
         <hr>
 

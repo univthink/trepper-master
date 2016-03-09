@@ -6,6 +6,18 @@ class PostsController < ApplicationController
     render partial: "post/all", layout: "application"
   end
 
+  def profile
+     if current_user.nil? == false
+       follower_ids = ""
+       current_user.all_following.each do |f|
+         follower_ids = follower_ids +", "+ f.id.to_s
+       end
+       @posts = Post.select("posts.*").where("user_id IN (" + current_user.id.to_s + follower_ids+")").order(:created_at.to_s + " DESC")
+     else
+       @posts = Post.select("posts.*").order(:created_at).page(params[:page]).per(50)
+     end
+   end
+
   def show
     if params[:id].is_a? Integer
       @post1 = Post.find(params[:id])

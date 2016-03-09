@@ -67,7 +67,7 @@
                     <div class="user-wrapper">
                       <img src="<%= current_user.image_file_name %>" />
                     <div class="description">
-                                      <% if current_user.id != current_user.id %><a href="#" style="color: white!important;" class="btn btn-danger btn-sm"></i> &nbsp;Follow + </a> <% end %>
+                                      <% if current_user.id != current_user.id %><a href="<%= follow_user_path(@user) %>" style="color: white!important;" class="btn btn-danger btn-sm"></i> &nbsp;Follow + </a> <% end %>
                       <button onclick="document.getElementById('#target').scrollIntoView()" target="#show-form" id="show-form" style="color: white!important;" class="btn btn-danger btn-sm"></i> &nbsp;New Post + </button>
 
                        <h4>  <%= current_user.first_name %>
