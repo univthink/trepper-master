@@ -36,6 +36,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="<%= welcome_path %>">TwitTwat</a>
+                <a class="navbar-brand" href="<%= edit_users_path %>">Edit Profile</a>
                 <a class="navbar-brand" href="<%= logout_path %>">Logout</a>
 
             </div>
@@ -85,9 +86,12 @@
                 <p><%= user.bio %></p>
                 <% @post = Post.where(user_id: user.id )  %>
                 <% @post = @post.last %>
-                <p style="font-weight: bold;"><%= @post.title %></p>
-                <p style="max-height: 100px; text-align: justify; overflow: scroll;"><%= @post.body + "..."  %></p>
+                <% if @post.nil? == false %><center><p style="font-weight: bold;"><%= @post.title %></p>
+                <p style="max-height: 100px; text-align: justify; overflow: scroll; max-width: 250px;"><%= @post.body + "..."  %></p></center>
+                <% else %><p style="font-weight: bold;">No posts to display</p>
+                <p style="max-height: 100px; text-align: justify; overflow: scroll;"></p>
 
+                <% end %>
 
             </div></a>
             <% end %>

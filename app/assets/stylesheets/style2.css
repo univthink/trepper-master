@@ -4,7 +4,10 @@ body {
     font-family: Verdana;
     background-color: #EAEAEA;
 }
-
+form#new_user {
+  margin-left: 45vw;
+  width: 10vw;
+}
 /* USER PROFILE STYLES */
 
     .user-wrapper .btn {

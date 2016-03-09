@@ -36,6 +36,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="<%= welcome_path %>">TwitTwat</a>
+                <a class="navbar-brand" href="<%= edit_users_path %>">Edit Profile</a>
                 <a class="navbar-brand" href="<%= logout_path %>">Logout</a>
             </div>
             <div class="to-toggle" style="display:none;" class="navbar-collapse collapse">
@@ -67,7 +68,7 @@
                     <div class="description">
                                       <% if User.find(params[:id]).id != current_user.id %><a href="#" style="color: white!important;" class="btn btn-danger btn-sm"></i> &nbsp;Follow + </a> <% end %>
                     <% if User.find(params[:id]).id == current_user.id %>  <button id="show-form" style="color: white!important;" class="btn btn-danger btn-sm"></i> &nbsp;New Post + </button> <% end %>
-                    <% if User.find(params[:id]).id == current_user.id %>  <button onclick="window.location.href='<%= edit_user_path %>'" id="show-form" style="color: white!important;" class="btn btn-danger btn-sm"></i> &nbsp;Edit Profile + </button><% end %>
+                    <% if User.find(params[:id]).id == current_user.id %>  <button onclick="window.location.href='<%= edit_users_path %>'" id="show-form" style="color: white!important;" class="btn btn-danger btn-sm"></i> &nbsp;Edit Profile + </button><% end %>
 
                        <h4>  <%= User.find(params[:id]).first_name %>
                         <%= User.find(params[:id]).last_name %></h4>
