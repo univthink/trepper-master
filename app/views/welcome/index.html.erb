@@ -92,8 +92,8 @@
                 <p><%= user.bio %></p>
                 <% @post = Post.where(user_id: user.id )  %>
                 <% @post = @post.last %>
-                <% if @post.nil? == false %><center><p style="font-weight: bold;"><%= @post.title %></p>
-                <p style="max-height: 100px; text-align: justify; overflow: scroll; max-width: 250px;"><%= raw sanitize(simple_format(@post.body), :tags => %w(br p) ) + "..."  %></p></center>
+                <% if @post.nil? == false %><center style="max-height: 100px; text-align: justify; overflow: scroll; max-width: 390px;"><p style="font-weight: bold;"><%= @post.title %></p>
+                <p style="padding-left: "><%= raw sanitize(simple_format(@post.body), :tags => %w(br p)) + "..."  %></p></center>
                 <% else %><p style="font-weight: bold;">No posts to display</p>
                 <p style="max-height: 100px; text-align: justify; overflow: scroll;"></p>
 
