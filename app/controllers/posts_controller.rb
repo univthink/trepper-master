@@ -15,6 +15,9 @@ class PostsController < ApplicationController
     render partial: "post/post", layout: "application"
   end
 
+def new
+  render 'posts/edit'
+end
 
 def create
   @post = Post.new

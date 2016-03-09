@@ -27,8 +27,8 @@ Rails.application.routes.draw do
 
   get 'save' => 'posts#create', as: :save_posts
   get 'posts/delete/(:id)' => 'posts#destroy', as: :delete
-  get 'posts/edit/(:id)' => 'posts#edit', as: :edit
-  get 'posts/(:id)/edit' => 'posts#edit', as: :edits
+  get 'posts/edit/(:id)' => 'posts#new', as: :edit
+  get 'posts/(:id)/edit' => 'posts#new', as: :edits
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
