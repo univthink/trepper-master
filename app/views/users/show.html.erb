@@ -130,7 +130,7 @@ $('#show-form').click(function() {
                                             <p class="post-meta">Posted on <%= p.created_at.strftime("%m/%d/%Y") %></p>
                                             <p><% p.user_id = current_user.id.to_i %></p>
 
-                                      <% if User.find(params[:id]).id == current_user.id %>      <p><%= link_to "DELETE", delete_path + "/#{p.id}" %><%= link_to " EDIT", edit_path + "/#{p.id}" %></p> <% end %>
+                                      <% if User.find(params[:id]).id == current_user.id %>      <p><%= link_to "DELETE", delete_path + "/#{p.id}" %><%= link_to " EDIT", edits_path + "/#{p.id}" %></p> <% end %>
                                   </div>
                                   <% end %>
 
