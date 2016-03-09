@@ -94,7 +94,7 @@
                 </h3>
                 <p><%= User.find_by_id(p.user.id).bio %></p>
                 <% if p.title.nil? == false %><center><p style="font-weight: bold;"><%= p.title %></p>
-                <p style="max-height: 100px; text-align: justify; overflow: scroll; max-width: 250px;"><%= p.body + "..."  %></p></center>
+                <p style="max-height: 100px; text-align: justify; overflow: scroll; max-width: 250px;"><%= raw sanitize(simple_format(p.body), :tags => %w(br p) ) + "..."  %></p></center>
                 <% else %><p style="font-weight: bold;">No posts to display</p>
                 <p style="max-height: 100px; text-align: justify; overflow: scroll;"></p>
 
